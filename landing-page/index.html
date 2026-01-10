@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suprema Solar - Energia Solar Fotovoltaica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: #000739;
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: #F26E24;
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: all 0.3s;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #000739 0%, #001a5c 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 70px;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><circle cx="100" cy="100" r="3" fill="%23F26E24" opacity="0.3"/><circle cx="300" cy="200" r="2" fill="%23F26E24" opacity="0.4"/><circle cx="500" cy="150" r="3" fill="%23F26E24" opacity="0.2"/><circle cx="700" cy="250" r="2" fill="%23F26E24" opacity="0.3"/><circle cx="900" cy="180" r="3" fill="%23F26E24" opacity="0.4"/><circle cx="1100" cy="220" r="2" fill="%23F26E24" opacity="0.3"/></svg>');
+            opacity: 0.1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero-content .highlight {
+            color: #F26E24;
+        }
+        
+        .hero-content p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .cta-primary {
+            background: #F26E24;
+            color: white;
+        }
+        
+        .cta-primary:hover {
+            background: #d95a15;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(242, 110, 36, 0.4);
+        }
+        
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .cta-secondary:hover {
+            background: white;
+            color: #000739;
+        }
+        
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #000739;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 50px;
+        }
+        
+        /* About Section */
+        .about {
+            background: #f8f8f8;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            color: #F26E24;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #F26E24;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        /* Benefits Section */
+        .benefits {
+            background: white;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .benefit-card {
+            background: #f8f8f8;
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+        
+        .benefit-card:hover {
+            border-color: #F26E24;
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(242, 110, 36, 0.2);
+        }
+        
+        .benefit-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+        
+        .benefit-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #000739;
+        }
+        
+        .benefit-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Calculator Section */
+        .calculator {
+            background: linear-gradient(135deg, #000739 0%, #001a5c 100%);
+            color: white;
+        }
+        
+        .calculator .section-title {
+            color: white;
+        }
+        
+        .calculator .section-subtitle {
+            color: #ccc;
+        }
+        
+        .calculator-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .calc-input-group {
+            margin-bottom: 25px;
+        }
+        
+        .calc-input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .calc-input-group input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .calc-button {
+            width: 100%;
+            padding: 15px;
+            background: #F26E24;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .calc-button:hover {
+            background: #d95a15;
+            transform: translateY(-2px);
+        }
+        
+        .calc-result {
+            margin-top: 30px;
+            padding: 30px;
+            background: rgba(242, 110, 36, 0.2);
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+        
+        .calc-result.show {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        .calc-result h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .calc-result .result-value {
+            font-size: 48px;
+            font-weight: bold;
+            color: #F26E24;
+            margin: 20px 0;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            background: #f8f8f8;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 80px;
+            color: #F26E24;
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #666;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: #000739;
+        }
+        
+        .testimonial-location {
+            color: #F26E24;
+            font-size: 14px;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background: white;
+        }
+        
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .form-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        .form-tab {
+            padding: 12px 30px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .form-tab.active {
+            background: #F26E24;
+            color: white;
+        }
+        
+        .form-tab:hover {
+            background: #F26E24;
+            color: white;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #000739;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #F26E24;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background: #F26E24;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .submit-button:hover {
+            background: #d95a15;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            background: #000739;
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: #F26E24;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section p,
+        .footer-section a {
+            color: #ccc;
+            line-height: 1.8;
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: #F26E24;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #ccc;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: #000739;
+                width: 100%;
+                text-align: center;
+                transition: right 0.3s;
+                padding: 30px 0;
+                gap: 20px;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .hero-content h1 {
+                font-size: 36px;
+            }
+            
+            .hero-content p {
+                font-size: 18px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-img {
+                height: 40px;
+            }
+            
+            .form-tabs {
+                flex-direction: column;
+            }
+            
+            .form-tab {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo-container">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Suprema Solar" class="logo-img" style="background: #000739; height: 50px; width: 200px; border-radius: 8px; padding: 5px;">
+            </div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="closeMenu()">Início</a></li>
+                <li><a href="#about" onclick="closeMenu()">Sobre</a></li>
+                <li><a href="#benefits" onclick="closeMenu()">Benefícios</a></li>
+                <li><a href="#calculator" onclick="closeMenu()">Calculadora</a></li>
+                <li><a href="#testimonials" onclick="closeMenu()">Depoimentos</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Energia Solar que <span class="highlight">Transforma</span></h1>
+            <p>Economize até 95% na conta de luz e invista no futuro sustentável</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="cta-button cta-primary">Solicite um Orçamento</a>
+                <a href="#calculator" class="cta-button cta-secondary">Calcule sua Economia</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">Por que Energia Solar?</h2>
+            <p class="section-subtitle">Invista no futuro e comece a economizar hoje</p>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Sustentabilidade e Economia</h3>
+                    <p>A energia solar é uma fonte limpa, renovável e inesgotável. Ao instalar um sistema fotovoltaico, você contribui para um planeta mais sustentável e ainda economiza significativamente na conta de luz.</p>
+                    <p>Com a Suprema Solar, você tem acesso à tecnologia de ponta, instalação profissional e suporte completo durante todo o processo.</p>
+                    <p><strong>Nosso diferencial:</strong> Pós-venda excepcional com acompanhamento contínuo do seu sistema.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Economia na conta de luz</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">Anos de garantia</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Projetos instalados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Satisfação dos clientes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <h2 class="section-title">Vantagens da Suprema Solar</h2>
+            <p class="section-subtitle">Por que escolher a gente?</p>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3>Economia Garantida</h3>
+                    <p>Reduza sua conta de luz em até 95% e tenha retorno do investimento em poucos anos</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🌍</div>
+                    <h3>Sustentabilidade</h3>
+                    <p>Energia limpa e renovável que ajuda a preservar o meio ambiente</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h3>Garantia Estendida</h3>
+                    <p>Equipamentos com garantia de 25 anos e instalação com garantia de 5 anos</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>Instalação Rápida</h3>
+                    <p>Processo completo em até 60 dias, da aprovação à ativação</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3>Valorização do Imóvel</h3>
+                    <p>Imóveis com energia solar valorizam até 30% no mercado</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🤝</div>
+                    <h3>Pós-Venda Premium</h3>
+                    <p>Suporte contínuo, monitoramento e manutenção do seu sistema</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="calculator" id="calculator">
+        <div class="container">
+            <h2 class="section-title">Calcule sua Economia</h2>
+            <p class="section-subtitle">Descubra quanto você pode economizar com energia solar</p>
+            <div class="calculator-container">
+                <div class="calc-input-group">
+                    <label for="avgBill">Qual o valor médio da sua conta de luz?</label>
+                    <input type="number" id="avgBill" placeholder="Ex: 500" min="0">
+                </div>
+                <div class="calc-input-group">
+                    <label for="roofSize">Área disponível no telhado (m²):</label>
+                    <input type="number" id="roofSize" placeholder="Ex: 50" min="0">
+                </div>
+                <button class="calc-button" onclick="calculateSavings()">Calcular Economia</button>
+                <div class="calc-result" id="calcResult">
+                    <h3>Sua Economia Estimada:</h3>
+                    <div class="result-value" id="resultValue">R$ 0</div>
+                    <p id="resultText"></p>
+                    <p style="margin-top: 20px;">
+                        <a href="#contact" class="cta-button cta-primary" style="display: inline-block;">Solicitar Orçamento Detalhado</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">O que nossos clientes dizem</h2>
+            <p class="section-subtitle">Experiências reais de quem já economiza com a Suprema Solar</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Instalei o sistema há 6 meses e minha conta de luz caiu de R$ 800 para R$ 60! O pós-venda da Suprema Solar é excepcional, sempre que preciso eles estão lá."</p>
+                    <p class="testimonial-author">Carlos Silva</p>
+                    <p class="testimonial-location">Porto Alegre, RS</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Melhor investimento que fiz! Além da economia, a equipe é extremamente profissional. Instalação rápida e tudo funcionando perfeitamente."</p>
+                    <p class="testimonial-author">Maria Santos</p>
+                    <p class="testimonial-location">Canoas, RS</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"O atendimento pós-venda faz toda a diferença. Eles monitoram meu sistema e já me avisaram de um pequeno problema antes mesmo de eu perceber. Recomendo!"</p>
+                    <p class="testimonial-author">João Oliveira</p>
+                    <p class="testimonial-location">Novo Hamburgo, RS</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Solicite seu Orçamento</h2>
+            <p class="section-subtitle">Preencha o formulário e entraremos em contato em até 24h</p>
+            <form class="contact-form" onsubmit="return handleSubmit(event)">
+                <div class="form-tabs">
+                    <button type="button" class="form-tab active" onclick="setFormType('orcamento')">Orçamento</button>
+                    <button type="button" class="form-tab" onclick="setFormType('calculadora')">Calculadora Detalhada</button>
+                    <button type="button" class="form-tab" onclick="setFormType('visita')">Agendar Visita</button>
+                </div>
+                <input type="hidden" id="formType" value="orcamento">
+                <div class="form-group">
+                    <label for="name">Nome Completo *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefone/WhatsApp *</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">Cidade *</label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="propertyType">Tipo de Imóvel *</label>
+                    <select id="propertyType" name="propertyType" required>
+                        <option value="">Selecione...</option>
+                        <option value="residencial">Residencial</option>
+                        <option value="comercial">Comercial</option>
+                        <option value="industrial">Industrial</option>
+                        <option value="rural">Rural</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensagem (opcional)</label>
+                    <textarea id="message" name="message" placeholder="Conte-nos mais sobre seu interesse..."></textarea>
+                </div>
+                <button type="submit" class="submit-button">Enviar Solicitação</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Suprema Solar</h3>
+                    <p>Energia solar fotovoltaica com qualidade e garantia. Transformando luz em economia desde 2015.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>📞 Laranja: #5700</p>
+                    <p>📞 Azul: 000739</p>
+                    <p>📧 contato@supremasolar.com.br</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Atendimento</h3>
+                    <p>Segunda a Sexta: 8h às 18h</p>
+                    <p>Sábado: 8h às 12h</p>
+                    <p>Suporte 24/7 pós-venda</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Suprema Solar. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+        
+        function closeMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+        
+        function setFormType(type) {
+            document.getElementById('formType').value = type;
+            const tabs = document.querySelectorAll('.form-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        
+        function calculateSavings() {
+            const avgBill = parseFloat(document.getElementById('avgBill').value);
+            const roofSize = parseFloat(document.getElementById('roofSize').value);
+            
+            if (!avgBill || !roofSize) {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+            
+            // Cálculo simplificado de economia (95% de redução)
+            const monthlySavings = avgBill * 0.95;
+            const yearlySavings = monthlySavings * 12;
+            const systemSize = Math.min(roofSize / 8, avgBill / 50); // Estimativa simples
+            
+            document.getElementById('resultValue').textContent = 
+                `R$ ${monthlySavings.toFixed(2)}/mês`;
+            
+            document.getElementById('resultText').innerHTML = 
+                `Economia anual estimada: <strong>R$ ${yearlySavings.toFixed(2)}</strong><br>` +
+                `Potência estimada do sistema: <strong>${systemSize.toFixed(1)} kWp</strong><br>` +
+                `Retorno do investimento: <strong>3-5 anos</strong>`;
+            
+            document.getElementById('calcResult').classList.add('show');
+        }
+        
+        function handleSubmit(event) {
+            event.preventDefault();
+            const formType = document.getElementById('formType').value;
+            const name = document.getElementById('name').value;
+            
+            let message = '';
+            if (formType === 'orcamento') {
+                message = `Obrigado, ${name}! Recebemos sua solicitação de orçamento. Nossa equipe entrará em contato em até 24h.`;
+            } else if (formType === 'calculadora') {
+                message = `Obrigado, ${name}! Vamos preparar uma análise detalhada da economia para seu imóvel. Aguarde nosso contato!`;
+            } else {
+                message = `Obrigado, ${name}! Vamos agendar a visita técnica. Entraremos em contato para confirmar data e horário.`;
+            }
+            
+            alert(message);
+            event.target.reset();
+            return false;
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
